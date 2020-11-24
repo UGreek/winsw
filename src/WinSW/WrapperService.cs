@@ -547,6 +547,8 @@ namespace WinSW
                 CreateNoWindow = this.config.HideWindow,
                 RedirectStandardOutput = logHandler?.OutFileDisabled == false,
                 RedirectStandardError = logHandler?.ErrFileDisabled == false,
+                StandardOutputEncoding = Encoding.UTF8,
+                StandardErrorEncoding = Encoding.UTF8
             };
 
             Dictionary<string, string> environment = this.config.EnvironmentVariables;
@@ -569,9 +571,14 @@ namespace WinSW
             succeeded = ConsoleApis.SetConsoleCtrlHandler(null, false); // inherited
             Debug.Assert(succeeded);
 
+            Log.Info("Encoding.Default: " + Encoding.Default.BodyName);
+            Log.Info("StandardOutputEncoding: " + startInfo.StandardOutputEncoding?.BodyName);
+            Log.Info("StandardErrorEncoding: " + startInfo.StandardErrorEncoding?.BodyName);
+
             Process process;
             try
             {
+                
                 process = Process.Start(startInfo)!;
             }
             finally

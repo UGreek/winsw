@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Text;
 using System.Threading.Tasks;
 using WinSW.Util;
 
@@ -126,7 +127,7 @@ namespace WinSW
             }
         }
 
-        protected StreamWriter CreateWriter(FileStream stream) => new StreamWriter(stream) { AutoFlush = true };
+        protected StreamWriter CreateWriter(FileStream stream) => new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true };
 
         protected abstract Task LogOutput(StreamReader outputReader);
 
